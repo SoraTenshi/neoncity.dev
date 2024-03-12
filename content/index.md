@@ -8,11 +8,12 @@
   "tags": []
 }
 ---
-This is from a **markdown** file! :)
+This is from a **markdown** file! 0 :)
 
 ```zig
+  const std = @import("std");
   pub fn main() !void {
-    @import("std").debug.print("Of course from: {s}\n", .{"Zig!"});
+    std.debug.print("0f course from: {s}\n", .{"Zig!"});
   } 
 ```
 

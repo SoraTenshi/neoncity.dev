@@ -1,7 +1,9 @@
 @import url('palette.css');
+@import url('fonts.css');
 
 * {
   color: var(--foreground);
+  font-feature-settings: 'zero' 'cv01' 'cv02' 'cv05' 'cv08' 'cv10';
 }
 
 body {
@@ -12,18 +14,25 @@ code .comment {
   color: var(--comments);
 }
 
-code.rust {}
+code.rust {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+}
 
-code.zig {}
+code.zig {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+}
+
 code.zig .string {
   color: var(--strings);
 }
 
-code.zig .variable, code.zig .field {
-  color: var(--yellow);
+code.zig .field {
+  color: var(--green);
 }
 
-code.zig .keyword.function, code.zig .exception {
+code.zig .keyword.function, code.zig .exception, code.zig .qualifier {
   color: var(--magenta);
 }
 
@@ -36,10 +45,10 @@ code.zig .function {
 }
 
 code.zig .builtin {
-  color: var(--light-green);
+  color: var(--aqua);
 }
 
-code.zig .operator, code.zig .qualifier, code.zig .delimiter {
+code.zig .operator, code.zig .delimiter, code.zig .variable {
   color: var(--white);
 }
 

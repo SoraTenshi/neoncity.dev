@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Lilex';
+    src: url('Lilex/Lilex-VF.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LilexMono';
+    src: url('Lilex-Mono/LilexNerdFontMono-Regular.ttf') format('truetype');
+}
