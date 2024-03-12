@@ -1,0 +1,24 @@
+:root {
+  --foreground: #a9b1d6;
+  --background-storm: #24283b;
+  --background-night: #1a1b26;
+
+  --red: #f7768e;
+  --yellow: #e0af68;
+  --green: #73daca;
+  --cyan: #7dcfff;
+  --blue: #7aa2f7;
+  --magenta: #bb9af7;
+  --white: #c0caf5;
+  --light-green: #73daca;
+
+  --constants: #ff9e64;
+  --strings: #9ece6a;
+  --comments: #565f89;
+  --regex: #b4f9f8;
+  --language-support-fun: #2ac3de;
+  --properties: #7dcfff;
+  --html-text: #9aa5ce;
+  --parameters: #cfc9c2;
+}
+

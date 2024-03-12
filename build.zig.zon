@@ -1,0 +1,20 @@
+.{
+    .name = "neoncity.dev",
+    .version = "0.0.0",
+    .dependencies = .{
+        .zine = .{
+            .url = "git+https://github.com/kristoff-it/zine.git#main",
+            .hash = "122019e58fa52177a8496613a252ad1d6c0f94f5ebe239abadcb87971e6b7ddf7700",
+        },
+    },
+
+    .paths = .{
+        "",
+        // For example...
+        //"build.zig",
+        //"build.zig.zon",
+        //"src",
+        //"LICENSE",
+        //"README.md",
+    },
+}

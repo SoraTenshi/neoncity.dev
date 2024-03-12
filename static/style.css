@@ -1,0 +1,48 @@
+@import url('palette.css');
+
+* {
+  color: var(--foreground);
+}
+
+body {
+  background-color: var(--background-storm);
+}
+
+code .comment {
+  color: var(--comments);
+}
+
+code.rust {}
+
+code.zig {}
+code.zig .string {
+  color: var(--strings);
+}
+
+code.zig .variable, code.zig .field {
+  color: var(--yellow);
+}
+
+code.zig .keyword.function, code.zig .exception {
+  color: var(--magenta);
+}
+
+code.zig .bracket {
+  color: var(--cyan);
+}
+
+code.zig .function {
+  color: var(--blue);
+}
+
+code.zig .builtin {
+  color: var(--light-green);
+}
+
+code.zig .operator, code.zig .qualifier, code.zig .delimiter {
+  color: var(--white);
+}
+
+code.zig .attribute {
+  color: var(--cyan);
+}
