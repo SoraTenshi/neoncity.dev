@@ -4,7 +4,7 @@
   "draft": false,
   "date": "2024-03-12",
   "author": "SoraNoTenshi",
-  "layout": "template/base.html",
+  "layout": "index.html",
   "tags": []
 }
 ---
