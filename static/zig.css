@@ -1,0 +1,41 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+
+code.zig {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+  text-align: left;
+}
+
+code.zig .string {
+  color: var(--strings);
+}
+
+code.zig .field {
+  color: var(--green);
+}
+
+code.zig .keyword.function, code.zig .exception, code.zig .qualifier {
+  color: var(--magenta);
+}
+
+code.zig .bracket {
+  color: var(--cyan);
+}
+
+code.zig .function {
+  color: var(--blue);
+}
+
+code.zig .builtin {
+  color: var(--aqua);
+}
+
+code.zig .operator, code.zig .delimiter, code.zig .variable {
+  color: var(--white);
+}
+
+code.zig .attribute {
+  color: var(--cyan);
+}
