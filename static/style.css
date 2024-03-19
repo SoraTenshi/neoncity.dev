@@ -8,10 +8,33 @@
 
 body {
   background-color: var(--background-storm);
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* Flex is structured around columns */
+  display: flex; /* The wrapping is column-wise */
+  align-items: center; /* Align Items horizontally align, but always favour flex (which in this case is horizontally) */
+  justify-content: center; /* scales horizontally */
+  padding-bottom: 20px;
+  scrollbar-gutter: stable;
+}
+
+p {
+  text-align: center;
+  font-size: 1.1rem;
+  border-bottom: 1px dotted var(--blue);
+}
+
+pre {
+  border-collapse: collapse;
+  border-bottom: 1px dotted var(--blue);
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+pre:last-child {
+  border-bottom: none;
+}
+
+#box {
+  border: 1px solid var(--blue);
 }
 
 code .comment {
