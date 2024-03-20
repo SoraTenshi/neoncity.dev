@@ -66,6 +66,7 @@ fn main() {
     macro_rules! macro_name {
         ($x:expr) => { println!("{}", $x) };
     }
+    // owo
     macro_name!("Macro called");
     let raw_str = r#"Raw string"#;
     let byte_str = b"Byte string";

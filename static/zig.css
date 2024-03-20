@@ -15,8 +15,12 @@ code.zig .field {
   color: var(--green);
 }
 
-code.zig .keyword.function, code.zig .exception, code.zig .qualifier {
+code.zig .keyword, code.zig .exception, code.zig .qualifier, code.zig .operator {
   color: var(--magenta);
+}
+
+code.zig .variable.builtin {
+  color: var(--red);
 }
 
 code.zig .bracket {
@@ -31,10 +35,14 @@ code.zig .builtin {
   color: var(--aqua);
 }
 
-code.zig .operator, code.zig .delimiter, code.zig .variable {
+code.zig .delimiter, code.zig .variable {
   color: var(--white);
 }
 
 code.zig .attribute {
   color: var(--cyan);
+}
+
+code.zig .number, code.zig .variable.builtin {
+  color: var(--constants);
 }
