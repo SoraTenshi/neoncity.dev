@@ -1,0 +1,8 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+code.rust {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+  text-align: left;
+}

@@ -1,0 +1,8 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+code.nasm {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+  text-align: left;
+}

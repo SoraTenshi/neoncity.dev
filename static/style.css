@@ -17,7 +17,7 @@ body {
 }
 
 p {
-  text-align: center;
+  text-align: left;
   font-size: 1.1rem;
   border-bottom: 1px dotted var(--blue);
 }
@@ -35,13 +35,10 @@ pre:last-child {
 
 #box {
   border: 1px solid var(--blue);
+  padding: 1em;
 }
 
 code .comment {
   color: var(--comments);
 }
 
-code.rust {
-  font-family: 'LilexMono';
-  font-feature-settings: 'zero';
-}
