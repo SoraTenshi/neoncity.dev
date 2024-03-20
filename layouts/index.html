@@ -1,9 +1,8 @@
 <extend template="base.html"/>
 <title id="title" var="$site.title"></title>
 
-<body id="main">
-  <h1 var="$page.title"></h1>
-  <div id="box">
-    <div var="$page.content"></div>
-  </div>
-</body>
+<div id="box">
+  <h1 class="centered" var="$page.title"></h1>
+  <div class="separator"></div>
+  <div class="subpairs" var="$page.content"></div>
+</div>

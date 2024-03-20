@@ -1,6 +1,6 @@
 ---
 {
-  "title": "It works!",
+  "title": "Welcome to my Site!",
   "draft": false,
   "date": "2024-03-12",
   "author": "SoraNoTenshi",
