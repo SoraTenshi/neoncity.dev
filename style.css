@@ -1,0 +1,94 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+* {
+  color: var(--foreground);
+}
+
+nav {
+  font-family: 'Verdana';
+  font-size: 1.4rem;
+  text-align: center;
+  border: 4px solid var(--blue);
+  padding: 0.6em;
+}
+
+nav a {
+  font-family: 'Verdana';
+  text-decoration: underline;
+}
+
+nav a:hover {
+  font-family: 'Verdana';
+  color: var(--blue);
+  font-feature-settings: 'wght=600';
+  transition: color 0.3s ease-in-out;
+}
+
+.separator {
+  font-family: 'Verdana';
+  margin-top: 30px;
+  border-bottom: 2px solid var(--blue);
+}
+
+.title {
+  font-family: 'Verdana';
+  text-align: center;
+  font-size: 1.4rem;
+  /* border-bottom: 1px dotted var(--blue); */
+  padding-top: 0.6em;
+}
+
+body {
+  font-family: 'Verdana';
+  background-color: var(--background-storm);
+  flex-direction: column; /* Flex is structured around columns */
+  display: flex; /* The wrapping is column-wise */
+  align-items: center; /* Align Items horizontally align, but always favour flex (which in this case is horizontally) */
+  justify-content: center; /* scales horizontally */
+  padding-bottom: 20px;
+  scrollbar-gutter: stable;
+}
+
+p {
+  text-align: left;
+  font-size: 1.1rem;
+  border-bottom: 1px dotted var(--blue);
+  margin-top: 0.2em;
+  padding-bottom: 1em;
+}
+
+p:last-child {
+  border-bottom: none;
+}
+
+pre {
+  border-collapse: collapse;
+  margin-top: 1em;
+  padding-bottom: 1em;
+}
+
+pre:last-child {
+  border-bottom: none;
+}
+
+#box {
+  margin-top: 2em;
+  border: 1px solid var(--blue);
+  min-width: 50em;
+}
+
+.subpairs > * {
+  padding: 1em;
+  border-bottom: 1px dotted var(--blue);
+}
+
+code {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero' 'cv01' 'cv02' 'cv05' 'cv08' 'cv10';
+}
+
+code .comment {
+  color: var(--comments);
+}
+

@@ -1,0 +1,48 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+code.rust {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+  text-align: left;
+}
+
+code.rust .keyword, code.rust .operator {
+  color: var(--magenta);
+}
+
+code.rust .function {
+  color: var(--blue);
+}
+
+code.rust .punctuation {
+  color: var(--cyan);
+}
+
+code.rust .punctuation.delimiter {
+  color: var(--light-green);
+}
+
+code.rust .property {
+  color: var(--properties);
+}
+
+code.rust .constant.builtin {
+  color: var(--constants);
+}
+
+code.rust .string {
+  color: var(--strings);
+}
+
+code.rust .constant {
+  color: var(--foreground);
+}
+
+code.rust .type, code.rust .attribute {
+  color: var(--aqua);
+}
+
+code.rust .variable.builtin {
+  color: var(--red);
+}

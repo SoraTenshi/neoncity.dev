@@ -1,0 +1,21 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+code.nasm {
+  font-family: 'LilexMono';
+  font-feature-settings: 'zero';
+  text-align: left;
+}
+
+code.nasm .function {
+  color: var(--blue);
+}
+
+code.nasm .constant.builtin {
+  color: var(--aqua);
+}
+
+code.nasm .constant.numeric {
+  color: var(--constants);
+}
+
