@@ -1,12 +1,12 @@
 ---
-.title = "Welcome to my Site!",
+.title = "!! Work in progress !!",
 .draft = false,
 .date = @date("2024-03-12"),
 .author = "SoraNoTenshi",
 .layout = "index.html",
 .tags = [],
 ---
-This is from a **markdown** file! 0 :)
+Lorem ipsum
 
 ```zig
 const std = @import("std");
