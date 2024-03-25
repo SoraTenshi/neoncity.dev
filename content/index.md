@@ -1,12 +1,10 @@
 ---
-{
-  "title": "Welcome to my Site!",
-  "draft": false,
-  "date": "2024-03-12",
-  "author": "SoraNoTenshi",
-  "layout": "index.html",
-  "tags": []
-}
+.title = "Welcome to my Site!",
+.draft = false,
+.date = @date("2024-03-12"),
+.author = "SoraNoTenshi",
+.layout = "index.html",
+.tags = [],
 ---
 This is from a **markdown** file! 0 :)
 
