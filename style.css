@@ -5,37 +5,57 @@
   color: var(--foreground);
 }
 
+h1:not(.title) {
+  font-size: 1.2rem;
+  padding-left: 1.3em;
+  margin-bottom: -0.6em;
+  border-bottom: none;
+}
+
+h2:not(.title) {
+  font-size: 1.1rem;
+  padding-left: 1.5em;
+  margin-bottom: -0.6em;
+  border-bottom: none;
+}
+
+h3:not(.title) {
+  font-size: 1rem;
+  padding-left: 1.6em;
+  margin-bottom: -0.6em;
+  border-bottom: none;
+}
+
 nav {
   font-family: 'Verdana';
-  font-size: 1.4rem;
+  background-color: var(--blue);
   text-align: center;
-  border: 4px solid var(--blue);
   padding: 0.6em;
 }
 
 nav a {
   font-family: 'Verdana';
+  color: var(--background-storm);
   text-decoration: underline;
 }
 
 nav a:hover {
   font-family: 'Verdana';
-  color: var(--blue);
-  font-feature-settings: 'wght=600';
-  transition: color 0.3s ease-in-out;
+  font-style: bold;
+  color: var(--constants);
+  transition: color 0.2s ease-in-out;
 }
 
 .separator {
   font-family: 'Verdana';
   margin-top: 30px;
-  border-bottom: 2px solid var(--blue);
+  border-bottom: 1px solid var(--blue);
 }
 
 .title {
   font-family: 'Verdana';
   text-align: center;
-  font-size: 1.4rem;
-  /* border-bottom: 1px dotted var(--blue); */
+  font-size: 1.2rem;
   padding-top: 0.6em;
 }
 
@@ -68,10 +88,6 @@ pre {
   padding-bottom: 1em;
 }
 
-pre:last-child {
-  border-bottom: none;
-}
-
 #box {
   margin-top: 2em;
   border: 1px solid var(--blue);
@@ -83,9 +99,31 @@ pre:last-child {
   border-bottom: 1px dotted var(--blue);
 }
 
+.post-link {
+  padding: 0.2em;
+}
+
+.footer {
+  font-style: italic;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.blog-entry {
+  margin-top: 1.6em;
+  margin-left: 1em;
+}
+
+.blog-info {
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
 code {
   font-family: 'LilexMono';
   font-feature-settings: 'zero' 'cv01' 'cv02' 'cv05' 'cv08' 'cv10';
+  font-size: 0.9rem;
 }
 
 code .comment {
