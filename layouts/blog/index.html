@@ -3,10 +3,14 @@
 
 <div id="box">
   <div>
-    <h2 style="margin-bottom: 1.75rem;"> Blog </h2>
-    <div loop="$page.subpages()">
-      <a href="$loop.it.permalink()" class="post-link" var="$loop.it.title"></a>
-      <span class="post-byline" style="margin-bottom: 1rem;" var="$loop.it.date.format('January 02, 2006')"></span>
+  <h1 style="font-size: 1.4rem;">Blog</h1>
+    <div class="separator"></div>
+    <div loop="$page.subpages()" class="blog-collection">
+      <div class="blog-entry">
+        <a href="$loop.it.permalink()" var="$loop.it.title"></a><br>
+        <span class="blog-info" var="$loop.it.date.format('January 02, 2006')"></span>
+      </div>
+      <div class="separator"></div>
     </div>
   </div>
 </div>
