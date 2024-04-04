@@ -1,5 +1,5 @@
 ---
-.title = "SoraTenshi",
+.title = "Main",
 .draft = false,
 .date = @date("2024-04-04"),
 .author = "SoraNoTenshi",
