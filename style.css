@@ -6,28 +6,28 @@
 }
 
 .main {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: 1fr 1fr;
 }
 
 h1:not(.title) {
   font-size: 1.2rem;
   padding-left: 1.3em;
-  margin-bottom: -0.6em;
+  margin-bottom: -0.4em;
   border-bottom: none;
 }
 
 h2:not(.title) {
   font-size: 1.1rem;
-  padding-left: 1.5em;
-  margin-bottom: -0.6em;
+  padding-left: 0.7em;
+  margin-bottom: -0.4em;
   border-bottom: none;
 }
 
 h3:not(.title) {
   font-size: 1rem;
   padding-left: 1.6em;
-  margin-bottom: -0.6em;
+  margin-bottom: -0.4em;
   border-bottom: none;
 }
 
@@ -71,7 +71,6 @@ body {
   display: flex; /* The wrapping is column-wise */
   align-items: center; /* Align Items horizontally align, but always favour flex (which in this case is horizontally) */
   justify-content: center; /* scales horizontally */
-  padding-bottom: 20px;
   scrollbar-gutter: stable;
 }
 
@@ -83,8 +82,35 @@ p {
   padding-bottom: 1em;
 }
 
-p:last-child {
+p:has(+ ul) {
   border-bottom: none;
+}
+
+ul {
+  border-bottom: 1px dotted var(--blue);
+  margin-top: -2em;
+}
+
+ul > * {
+  margin-left: 1.8em;
+}
+
+li {
+  margin-top: -1em;
+}
+
+li:first-child {
+  margin-top: 0.2em;
+}
+
+li > * {
+  border-bottom: none;
+}
+
+li::marker {
+  content: "-> ";
+  font-family: 'LilexMono';
+  color: var(--magenta);
 }
 
 pre {
@@ -93,15 +119,26 @@ pre {
   padding-bottom: 1em;
 }
 
-#box {
-  margin-top: 2em;
-  border: 1px solid var(--blue);
-  min-width: 50em;
+@media(max-width: 799px) {
+  #box {
+    margin-top: 2em;
+    border: 1px solid var(--blue);
+    max-width: fit-content(10em);
+    margin: 0 auto;
+  }
+}
+
+@media(min-width: 800px) {
+  #box {
+    margin-top: 2em;
+    border: 1px solid var(--blue);
+    max-width: 50%;
+    margin: 0 auto;
+  }
 }
 
 .subpairs > * {
   padding: 1em;
-  border-bottom: 1px dotted var(--blue);
 }
 
 .post-link {
