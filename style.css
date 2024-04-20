@@ -109,7 +109,7 @@ li > * {
 
 li::marker {
   content: "-> ";
-  font-family: 'LilexMono';
+  font-family: 'Lilex';
   color: var(--magenta);
 }
 
@@ -163,8 +163,7 @@ pre {
 }
 
 code {
-  font-family: 'LilexMono';
-  font-feature-settings: 'zero' 'cv01' 'cv02' 'cv05' 'cv08' 'cv10';
+  font-family: 'Lilex';
   font-size: 0.9rem;
 }
 
