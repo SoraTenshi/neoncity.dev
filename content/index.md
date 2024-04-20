@@ -19,6 +19,8 @@ My favourite programming languages (in no particular order) currently are:
 - Zig
 - Odin
 - Go
+- Rust
+- Lisp (Mostly Clojure and Scheme)
 
 My typical development setup contains: Ghostty, [Lazygit](https://github.com/jesseduffield/lazygit), [My own Helix fork](https://github.com/SoraTenshi/helix/tree/new-daily-driver) and in general, everything i use for development can be found in my [NixOS config](https://github.com/SoraTenshi/nixos-config).
 
