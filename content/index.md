@@ -27,5 +27,5 @@ My typical development setup contains: Ghostty, [Lazygit](https://github.com/jes
 This is a personal Website to just write down some of the things i learned throughout the time
 being, i also intend to use this to enhance my communication skills.
 
-Criticism / Feedback is generally received by personally, just write an issue [here](https://github.com/SoraTenshi/neoncity.dev/issues)
+Criticism / Feedback is generally received by personally, just write an issue [on my GitHub Repository](https://github.com/SoraTenshi/neoncity.dev/issues).
 
