@@ -77,7 +77,6 @@ body {
 p {
   text-align: left;
   font-size: 1.1rem;
-  border-bottom: 1px dotted var(--blue);
   margin-top: 0.2em;
   padding-bottom: 1em;
 }
@@ -87,7 +86,6 @@ p:has(+ ul) {
 }
 
 ul {
-  border-bottom: 1px dotted var(--blue);
   margin-top: -2em;
 }
 
@@ -114,7 +112,7 @@ li::marker {
 }
 
 pre {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   margin-top: 1em;
   padding-bottom: 1em;
 }
@@ -137,6 +135,15 @@ pre {
   }
 }
 
+img {
+  max-height: auto;
+  max-width: 100%;
+}
+
+.dotted-sep {
+  border-bottom: 1px dotted var(--blue);
+}
+
 .subpairs > * {
   padding: 1em;
 }
@@ -146,6 +153,7 @@ pre {
 }
 
 .footer {
+  border-top: 1px dotted var(--blue);
   font-style: italic;
   font-size: 0.9rem;
   text-align: center;
@@ -162,8 +170,15 @@ pre {
   font-style: italic;
 }
 
+pre > code {
+  max-width: 100%;
+  text-wrap: wrap;
+  display: inline-block;
+  font-family: 'Lilex', monospace;
+}
+
 code {
-  font-family: 'Lilex';
+  font-family: 'Lilex', monospace;
   font-size: 0.9rem;
 }
 
