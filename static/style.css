@@ -10,6 +10,14 @@
   grid-template-columns: 1fr 1fr;
 }
 
+h1:not(:first-child) {
+  border-top: 1px solid var(--blue);
+}
+
+h1.title {
+  border-top: none;
+}
+
 h1:not(.title) {
   font-size: 1.2rem;
   padding-left: 1.3em;
@@ -21,7 +29,10 @@ h2:not(.title) {
   font-size: 1.1rem;
   padding-left: 0.7em;
   margin-bottom: -0.4em;
-  border-bottom: none;
+}
+
+h2:not(:first-child) {
+  border-top: 1px dotted var(--blue);
 }
 
 h3:not(.title) {
@@ -77,17 +88,11 @@ body {
 p {
   text-align: left;
   font-size: 1.1rem;
-  border-bottom: 1px dotted var(--blue);
   margin-top: 0.2em;
   padding-bottom: 1em;
 }
 
-p:has(+ ul) {
-  border-bottom: none;
-}
-
 ul {
-  border-bottom: 1px dotted var(--blue);
   margin-top: -2em;
 }
 
@@ -114,7 +119,7 @@ li::marker {
 }
 
 pre {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   margin-top: 1em;
   padding-bottom: 1em;
 }
@@ -137,6 +142,19 @@ pre {
   }
 }
 
+img {
+  max-height: auto;
+  max-width: 100%;
+}
+
+details {
+  padding-top: 0px !important;
+}
+
+.dotted-sep {
+  border-top: 1px dotted var(--blue);
+}
+
 .subpairs > * {
   padding: 1em;
 }
@@ -146,6 +164,7 @@ pre {
 }
 
 .footer {
+  border-top: 1px dotted var(--blue);
   font-style: italic;
   font-size: 0.9rem;
   text-align: center;
@@ -162,9 +181,17 @@ pre {
   font-style: italic;
 }
 
+pre > code {
+  max-width: 100%;
+  text-wrap: wrap;
+  display: inline-block;
+  font-family: 'Lilex';
+}
+
 code {
   font-family: 'Lilex';
   font-size: 0.9rem;
+  text-align: left;
 }
 
 code .comment {
