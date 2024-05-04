@@ -1,11 +1,4 @@
 @import url('palette.css');
-@import url('fonts.css');
-
-code.zig {
-  font-family: 'LilexMono';
-  font-feature-settings: 'zero';
-  text-align: left;
-}
 
 code.zig .string {
   color: var(--strings);

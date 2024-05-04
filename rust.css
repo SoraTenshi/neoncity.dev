@@ -1,12 +1,6 @@
 @import url('palette.css');
 @import url('fonts.css');
 
-code.rust {
-  font-family: 'LilexMono';
-  font-feature-settings: 'zero';
-  text-align: left;
-}
-
 code.rust .keyword, code.rust .operator {
   color: var(--magenta);
 }

@@ -1,0 +1,26 @@
+@import url('palette.css');
+
+code.c .constant, code.c .number {
+  color: var(--constants);
+}
+
+code.c .type {
+  color: var(--cyan);
+}
+
+code.c .function {
+  color: var(--blue);
+}
+
+code.c .delimiter {
+  color: var(--white);
+}
+
+code.c .keyword {
+  color: var(--aqua);
+}
+
+code.c .property {
+  color: var(--light-green);
+}
+

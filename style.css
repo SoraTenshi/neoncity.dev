@@ -10,6 +10,14 @@
   grid-template-columns: 1fr 1fr;
 }
 
+h1:not(:first-child) {
+  border-top: 1px solid var(--blue);
+}
+
+h1.title {
+  border-top: none;
+}
+
 h1:not(.title) {
   font-size: 1.2rem;
   padding-left: 1.3em;
@@ -21,7 +29,10 @@ h2:not(.title) {
   font-size: 1.1rem;
   padding-left: 0.7em;
   margin-bottom: -0.4em;
-  border-bottom: none;
+}
+
+h2:not(:first-child) {
+  border-top: 1px dotted var(--blue);
 }
 
 h3:not(.title) {
@@ -81,10 +92,6 @@ p {
   padding-bottom: 1em;
 }
 
-p:has(+ ul) {
-  border-bottom: none;
-}
-
 ul {
   margin-top: -2em;
 }
@@ -140,8 +147,12 @@ img {
   max-width: 100%;
 }
 
+details {
+  padding-top: 0px !important;
+}
+
 .dotted-sep {
-  border-bottom: 1px dotted var(--blue);
+  border-top: 1px dotted var(--blue);
 }
 
 .subpairs > * {
@@ -174,12 +185,13 @@ pre > code {
   max-width: 100%;
   text-wrap: wrap;
   display: inline-block;
-  font-family: 'Lilex', monospace;
+  font-family: 'Lilex';
 }
 
 code {
-  font-family: 'Lilex', monospace;
+  font-family: 'Lilex';
   font-size: 0.9rem;
+  text-align: left;
 }
 
 code .comment {
