@@ -53,9 +53,10 @@ get there eventually!)
 Now to one of the interesting part, the `build.zig`.
 Since my development environment is at least for personal projects (at the moment) on Windows 11 inside
 a WSL2 instance running NixOS, i was hoping that Zig could just compensate for the cross-platform "issue".
-Spoiler: <details>it did.</details>
-Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
-not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:
+<details>it did.</details>
+<p>Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
+not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:</p>
+
 ```zig
 const std = @import("std");
 
