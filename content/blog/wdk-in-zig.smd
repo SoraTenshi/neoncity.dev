@@ -3,7 +3,7 @@
 .draft = false,
 .date = @date("2024-05-03"),
 .author = "SoraNoTenshi",
-.layout = "blog/blog.html",
+.layout = "blog/blog.shtml",
 .tags = [],
 ---
 
@@ -53,9 +53,9 @@ get there eventually!)
 Now to one of the interesting part, the `build.zig`.
 Since my development environment is at least for personal projects (at the moment) on Windows 11 inside
 a WSL2 instance running NixOS, i was hoping that Zig could just compensate for the cross-platform "issue".
-<details>it did.</details>
-<p>Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
-not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:</p>
+Spoiler: *it did*.
+Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
+not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:
 
 ```zig
 const std = @import("std");
@@ -223,9 +223,9 @@ just want it to have the same memory layout.
 
 (This will be done with all of the following errors, so yeah a lot of bitfield counting!)
 
-<details>Of course i was too lazy to handle all of those cases properly, so for now i just replaced
+Of course i was too lazy to handle all of those cases properly, so for now i just replaced
 everything with `*anyopaque`, praying that it all just works as expected. I am not calling myself a
-Hacker without a reason :p</details>
+Hacker without a reason :p
 
 # Next steps
 Now, running `zig build` lead to the following:
@@ -314,7 +314,7 @@ blabla yeah there is a warning, but who cares[[1](#1)] about warnings, am i righ
 Now my friend is coming in clutch again, who already has a full Windows VM set up, including
 a custom tool to load drivers, resulting in..........
 
-![](./wdk_in_zig/working_driver.png)
+[]($image.asset('working_driver.png'))
 
 And that's how i have written my first Windows Driver (and also have written my first blog post!).
 

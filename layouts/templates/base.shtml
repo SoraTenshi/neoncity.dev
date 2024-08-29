@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="title"><super></title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/zig.css">
+    <link rel="stylesheet" type="text/css" href="/rust.css">
+    <link rel="stylesheet" type="text/css" href="/nasm.css">
+    <link rel="stylesheet" type="text/css" href="/c.css">
+  </head>
+  <body class="main">
+    <div id="box">
+      <nav class="menu">
+        <a href="/">Home</a>
+         &nbsp;&nbsp;
+        <a href="/blog/index.shtml">Blog</a>
+         &nbsp;&nbsp;
+        <a href="https://github.com/SoraTenshi">GitHub</a>
+      </nav>
+      <super>
+      <div class="footer">
+        <br>
+        Did you know?<br>
+        This page is
+        <strong>open source</strong>
+        and deployed using GitHub pages.<br>
+        I also did
+        <strong>not</strong>
+        use any CSS Framework, JavaScript or whatsoever.<br>
+        You can find the Source Code
+        <a href="https://github.com/SoraTenshi/neoncity.dev" style="color: var(--blue)">on my GitHub!</a><br>
+        <br>
+        Also if you find anything that may be inaccurate or not quite correct, please feel free to
+      submit an issue to correct me!
+      </div>
+    </div>
+  </body>
+</html>
