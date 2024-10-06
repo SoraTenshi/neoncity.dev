@@ -1,0 +1,183 @@
+@import url('palette.css');
+@import url('fonts.css');
+
+:root {
+  --px1: 0.2em;
+  --px2: 0.4em;
+  --px3: 0.6em;
+  --px4: 0.8em;
+  --px5: 1em;
+  --px6: 1.2em;
+  --px7: 1.4em;
+  --px8: 1.6em;
+  --px9: 1.8em;
+  --px10: 2em;
+}
+
+* {
+  font-family: 'Verdana';
+  color: var(--foreground);
+}
+
+*,
+*:before,
+*:after {
+  display: revert;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-storm);
+  flex-direction: column; /* Flex is structured around columns */
+  display: flex; /* The wrapping is column-wise */
+  align-items: center; /* Align Items horizontally align, but always favour flex (which in this case is horizontally) */
+  justify-content: center; /* scales horizontally */
+  scrollbar-gutter: stable;
+}
+
+h1 {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: var(--px3);
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: var(--px4);
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h2, h3, h4 {
+  padding: var(--px4);
+}
+
+h2::after, h3::after, h4::after {
+  border-bottom: 1px dotted var(--blue);
+  padding-bottom: var(--px8);
+}
+
+h2:has(+ h3),
+h2:has(+ h4),
+h3:has(+ h2),
+h3:has(+ h4),
+h4:has(+ h2),
+h4:has(+ h3) {
+  border-bottom: none;
+}
+
+h2 + h3,
+h2 + h4,
+h3 + h2,
+h3 + h4,
+h4 + h2,
+h4 + h3 {
+  margin-top: -18px;
+  padding-left: 18px;
+  border-bottom: 1px dotted var(--blue);
+  padding-bottom: var(--px8);
+}
+
+nav {
+  background-color: var(--blue);
+  text-align: center;
+  padding: var(--px3);
+}
+
+nav a {
+  color: var(--background-storm);
+  text-decoration: underline;
+}
+
+nav a:hover {
+  font-style: bold;
+  color: var(--comments);
+  transition: color 0.2s ease-in-out;
+}
+
+li::marker {
+  font-family: 'Lilex';
+  content: "-> ";
+  color: var(--magenta);
+}
+
+li {
+  padding: var(--px2);
+}
+
+ul {
+  border-bottom: 1px dotted var(--blue);
+  padding-bottom: var(--px4);
+}
+
+p {
+  text-align: left;
+  font-size: 1.1rem;
+  padding: var(--px3);
+}
+
+p:has(+ h2),
+p:has(+ h3),
+p:has(+ h4) {
+  border-bottom: 1px dotted var(--blue);
+}
+
+#blog-entry {
+  padding: var(--px4);
+  padding-bottom: var(--px8);
+}
+
+.blog-info {
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
+
+.footer {
+  border-top: 1px dashed var(--blue);
+  font-style: italic;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: var(--px5);
+}
+
+img {
+  max-height: auto;
+  max-width: 100%;
+}
+
+/* Code Block! */
+pre > code {
+  max-width: 100%;
+  text-wrap: pretty;
+  display: inline-block;
+  border: 0px solid;
+  box-shadow: 0 -3px 3px -3px, 0 3px 3px -3px;
+  padding: var(--px3);
+  padding-bottom: var(--px4);
+}
+
+code {
+  font-family: 'Lilex';
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+/* Mobile View stuff */
+@media(max-width: 799px) {
+  #box {
+    box-shadow: 0 0 20px var(--blue);
+    max-width: fit-content(10em);
+  }
+}
+
+@media(min-width: 800px) {
+  #box {
+    box-shadow: 0 0 40px var(--blue);
+    max-width: 50%;
+  }
+}
+

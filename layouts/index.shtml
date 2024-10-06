@@ -1,0 +1,5 @@
+<extend template="base.shtml">
+<title id="title" :text="$site.title"></title>
+<div id="box">
+  <div class="subpairs" :html="$page.content()"></div>
+</div>

@@ -1,0 +1,15 @@
+<extend template="base.shtml">
+  <title id="title" :text="$site.title"></title>
+  <div id="box">
+    <div>
+      <h1 id="title" :text="$page.title"></h1>
+      <div class="separator"></div>
+      <div :loop="$page.subpages()" class="blog-collection">
+        <div id="blog-entry">
+          <a href="$loop.it.link()" :text="$loop.it.title"></a><br>
+          <span class="blog-info" :text="$loop.it.date.format('January 02, 2006')"></span>
+        </div>
+        <div class="separator"></div>
+      </div>
+    </div>
+  </div>

@@ -3,11 +3,11 @@
 .draft = false,
 .date = @date("2024-05-03"),
 .author = "SoraNoTenshi",
-.layout = "blog/blog.html",
+.layout = "blog/blog.shtml",
 .tags = [],
 ---
 
-# The beginning
+## The beginning
 
 A friend of mine was working on some driver and i just thought to myself: well, wouldn't it be nice
 if i could just write a Windows Driver in Zig?
@@ -15,7 +15,7 @@ if i could just write a Windows Driver in Zig?
 Since i always wanted to experiment around with the WDK, i figured, why not?
 So there the journey began.
 
-## Setting up Zig for WDK
+### Setting up Zig for WDK
 
 First things first: I of course looked around the MSDN to find some information on what to do, 
 also with the help of my friend i could figure out *some* of the basics required for it, such as:
@@ -53,9 +53,9 @@ get there eventually!)
 Now to one of the interesting part, the `build.zig`.
 Since my development environment is at least for personal projects (at the moment) on Windows 11 inside
 a WSL2 instance running NixOS, i was hoping that Zig could just compensate for the cross-platform "issue".
-<details>it did.</details>
-<p>Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
-not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:</p>
+Spoiler: *it did*.
+Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am
+not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:
 
 ```zig
 const std = @import("std");
@@ -90,9 +90,9 @@ Well no, but for a PoC this is more than good enough.
 The build script will just tell the Zig Compiler where to find the `C-Headers` and where to place
 the emitted `obj` file "$PWD/zig-out/obj/wdk-zig.obj".
 
-# Fixing the translate-c output
+## Fixing the translate-c output
 
-## nitfs.h
+### nitfs.h
 
 Now after my first `zig build` run, i get the following output:
 ```
@@ -177,7 +177,7 @@ assume that we just need to fix the optional. Which then results into:
 ```
 and this causes us to get the next error. Of course... :(
 
-## wdm.h
+### wdm.h
 
 Next compile error is the following:
 ```
@@ -223,11 +223,11 @@ just want it to have the same memory layout.
 
 (This will be done with all of the following errors, so yeah a lot of bitfield counting!)
 
-<details>Of course i was too lazy to handle all of those cases properly, so for now i just replaced
+Of course i was too lazy to handle all of those cases properly, so for now i just replaced
 everything with `*anyopaque`, praying that it all just works as expected. I am not calling myself a
-Hacker without a reason :p</details>
+Hacker without a reason :p
 
-# Next steps
+## Next steps
 Now, running `zig build` lead to the following:
 ```
 ❯❯ zig build
@@ -268,7 +268,7 @@ DriverEntry
 ```
 Well this certainly does look... very good, indeed!
 
-## Linking
+### Linking
 
 Linking was, less trivial than i thought, on WSL i am mostly able to run `.exe` files, but for linking
 this sort of didn't work when i was trying with `/SUBSYSTEM:native` so i just copied the object file
@@ -314,10 +314,10 @@ blabla yeah there is a warning, but who cares[[1](#1)] about warnings, am i righ
 Now my friend is coming in clutch again, who already has a full Windows VM set up, including
 a custom tool to load drivers, resulting in..........
 
-![](./wdk_in_zig/working_driver.png)
+[]($image.asset('working_driver.png'))
 
 And that's how i have written my first Windows Driver (and also have written my first blog post!).
 
-### Footnote:
+#### Footnote:
 
 <a name="1">[1]</a> Of course i care about warnings, but only in serious, non-prototype Projects.
