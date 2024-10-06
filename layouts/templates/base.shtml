@@ -5,24 +5,23 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title id="title"><super></title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <link rel="stylesheet" type="text/css" href="/zig.css">
-    <link rel="stylesheet" type="text/css" href="/rust.css">
-    <link rel="stylesheet" type="text/css" href="/nasm.css">
-    <link rel="stylesheet" type="text/css" href="/c.css">
+    <link rel="stylesheet" type="text/css" href="$site.asset('style.css').link()">
+    <link rel="stylesheet" type="text/css" href="$site.asset('zig.css').link()">
+    <link rel="stylesheet" type="text/css" href="$site.asset('rust.css').link()">
+    <link rel="stylesheet" type="text/css" href="$site.asset('nasm.css').link()">
+    <link rel="stylesheet" type="text/css" href="$site.asset('c.css').link()">
   </head>
   <body class="main">
     <div id="box">
       <nav class="menu">
         <a href="/">Home</a>
          &nbsp;&nbsp;
-        <a href="/blog/index.shtml">Blog</a>
+        <a href="$site.page('/blog/index').link()">Blog</a>
          &nbsp;&nbsp;
         <a href="https://github.com/SoraTenshi">GitHub</a>
       </nav>
       <super>
       <div class="footer">
-        <br>
         Did you know?<br>
         This page is
         <strong>open source</strong>
