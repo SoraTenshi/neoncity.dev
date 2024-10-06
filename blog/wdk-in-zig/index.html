@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="title">Blog by SoraNoTenshi</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/zig.css">
+    <link rel="stylesheet" type="text/css" href="/rust.css">
+    <link rel="stylesheet" type="text/css" href="/nasm.css">
+    <link rel="stylesheet" type="text/css" href="/c.css">
+  </head>
+  <body class="main">
+    <div id="box">
+      <nav class="menu">
+        <a href="/">Home</a>
+         &nbsp;&nbsp;
+        <a href="/blog/">Blog</a>
+         &nbsp;&nbsp;
+        <a href="https://github.com/SoraTenshi">GitHub</a>
+      </nav>
+      
+  <h1 id="title">Writing my first Windows Driver in Zig</h1>
+  <div class="subpairs"><h2>The beginning</h2><p>A friend of mine was working on some driver and i just thought to myself: well, wouldn't it be nice if i could just write a Windows Driver in Zig?</p><p>Since i always wanted to experiment around with the WDK, i figured, why not? So there the journey began.</p><h3>Setting up Zig for WDK</h3><p>First things first: I of course looked around the MSDN to find some information on what to do, also with the help of my friend i could figure out <em>some</em> of the basics required for it, such as:</p><ul><li>Entry point</li><li>required Headers</li><li>and most of the linker options, but we'll get to that in a bit.</li></ul><p>So i started to write a simple driver entry point in Zig, which looks like that:</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">win</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">&quot;std&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">.</span><span class="field">os</span><span class="punctuation delimiter">.</span><span class="field">windows</span><span class="punctuation delimiter">;</span>
+<span class="type qualifier">const</span> <span class="variable">wdk</span> = <span class="function builtin">@cImport</span><span class="punctuation bracket">(</span><span class="punctuation bracket">{</span>
+    <span class="function builtin">@cDefine</span><span class="punctuation bracket">(</span><span class="string">&quot;_AMD64_&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;1&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;ntifs.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;ntddk.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;wdm.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;ntstrsafe.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;ntimage.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;fltkernel.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+<span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+
+<span class="attribute">pub</span> <span class="keyword function">fn</span> <span class="function">driverEntry</span><span class="punctuation bracket">(</span><span class="parameter">_</span><span class="punctuation delimiter">:</span> <span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="field">PDRIVER_OBJECT</span><span class="punctuation delimiter">,</span> <span class="parameter">_</span><span class="punctuation delimiter">:</span> <span class="operator">*</span><span class="type qualifier">const</span> <span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="field">UNICODE_STRING</span><span class="punctuation bracket">)</span> <span class="storageclass">callconv</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="variable builtin">C</span><span class="punctuation bracket">)</span> <span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="field">NTSTATUS</span> <span class="punctuation bracket">{</span>
+    <span class="type qualifier">const</span> <span class="variable">owo</span><span class="punctuation delimiter">:</span> <span class="operator">*</span><span class="type qualifier">const</span> <span class="punctuation bracket">[</span><span class="number">35</span><span class="punctuation delimiter">:</span><span class="number">0</span><span class="punctuation bracket">]</span><span class="type builtin">u8</span> = <span class="string">&quot;OwO What&apos;s this? \nUwU *nuzzles you*&quot;</span><span class="punctuation delimiter">;</span>
+    <span class="variable">_</span> <span class="operator">=</span> <span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="function">DbgPrintEx</span><span class="punctuation bracket">(</span><span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="field">DPFLTR_IHVDRIVER_ID</span><span class="punctuation delimiter">,</span> <span class="variable">wdk</span><span class="punctuation delimiter">.</span><span class="field">DPFLTR_ERROR_LEVEL</span><span class="punctuation delimiter">,</span> <span class="variable">owo</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="keyword return">return</span> <span class="number">0</span><span class="punctuation delimiter">;</span>
+<span class="punctuation bracket">}</span>
+
+<span class="attribute">comptime</span> <span class="punctuation bracket">{</span>
+    <span class="function builtin">@export</span><span class="punctuation bracket">(</span><span class="variable">driverEntry</span><span class="punctuation delimiter">,</span> <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">name</span> = <span class="string">&quot;DriverEntry&quot;</span> <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+<span class="punctuation bracket">}</span>
+</code></pre>
+<p>This for now should just write something to the kernel debugger. (To be fair, i am not yet advanced enough to <em>fully</em> understand what the <code>ComponentId</code> as well as <code>Level</code> is for, but i'll probably get there eventually!)</p><p>Now to one of the interesting part, the <code>build.zig</code>. Since my development environment is at least for personal projects (at the moment) on Windows 11 inside a WSL2 instance running NixOS, i was hoping that Zig could just compensate for the cross-platform "issue". Spoiler: <em>it did</em>. Setting up paths to the WDK headers was relatively simple, however one thing to note is, that i am not Linking the Compiler emition, but rather keep the Object, export it and then link it manually:</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">std</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">&quot;std&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+
+<span class="attribute">pub</span> <span class="keyword function">fn</span> <span class="function">build</span><span class="punctuation bracket">(</span><span class="parameter">b</span><span class="punctuation delimiter">:</span> <span class="operator">*</span><span class="variable">std</span><span class="punctuation delimiter">.</span><span class="field">Build</span><span class="punctuation bracket">)</span> <span class="type builtin">void</span> <span class="punctuation bracket">{</span>
+    <span class="type qualifier">const</span> <span class="variable">wdk_path</span> = <span class="string">&quot;/mnt/c/Program Files (x86)/Windows Kits/10/Include/10.0.22000.0&quot;</span><span class="punctuation delimiter">;</span>
+    <span class="type qualifier">const</span> <span class="variable">optimize</span> = <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">standardOptimizeOption</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span><span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+
+    <span class="type qualifier">const</span> <span class="variable">lib</span> = <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">addObject</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
+        <span class="punctuation delimiter">.</span><span class="field">name</span> = <span class="string">&quot;wdk-zig&quot;</span><span class="punctuation delimiter">,</span>
+        <span class="punctuation delimiter">.</span><span class="field">root_source_file</span> = <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">path</span><span class="punctuation bracket">(</span><span class="string">&quot;src/main.zig&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+        <span class="punctuation delimiter">.</span><span class="field">target</span> = <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">resolveTargetQuery</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
+            <span class="punctuation delimiter">.</span><span class="field">os_tag</span> = <span class="punctuation delimiter">.</span><span class="variable builtin">windows</span><span class="punctuation delimiter">,</span>
+            <span class="punctuation delimiter">.</span><span class="field">abi</span> = <span class="punctuation delimiter">.</span><span class="variable builtin">msvc</span><span class="punctuation delimiter">,</span>
+        <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">,</span>
+        <span class="punctuation delimiter">.</span><span class="field">optimize</span> = <span class="variable">optimize</span><span class="punctuation delimiter">,</span>
+    <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">lib</span><span class="punctuation delimiter">.</span><span class="function">addIncludePath</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">path</span> = <span class="string">&quot;/mnt/c/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.40.33521/include&quot;</span> <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">lib</span><span class="punctuation delimiter">.</span><span class="function">addIncludePath</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">path</span> = <span class="string">&quot;/mnt/c/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/km&quot;</span> <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">lib</span><span class="punctuation delimiter">.</span><span class="function">addIncludePath</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">path</span> = <span class="variable">wdk_path</span> <span class="operator">++</span> <span class="string">&quot;/shared&quot;</span> <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">lib</span><span class="punctuation delimiter">.</span><span class="function">addIncludePath</span><span class="punctuation bracket">(</span><span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">path</span> = <span class="variable">wdk_path</span> <span class="operator">++</span> <span class="string">&quot;/ucrt&quot;</span> <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+
+    <span class="type qualifier">const</span> <span class="variable">install_step</span> = <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">addInstallArtifact</span><span class="punctuation bracket">(</span><span class="variable">lib</span><span class="punctuation delimiter">,</span> <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span>
+        <span class="punctuation delimiter">.</span><span class="field">dest_dir</span> = <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">override</span> = <span class="punctuation delimiter">.</span><span class="punctuation bracket">{</span> <span class="punctuation delimiter">.</span><span class="field">custom</span> = <span class="string">&quot;obj&quot;</span> <span class="punctuation bracket">}</span> <span class="punctuation bracket">}</span><span class="punctuation delimiter">,</span>
+    <span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+
+    <span class="variable">b</span><span class="punctuation delimiter">.</span><span class="function">getInstallStep</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">.</span><span class="function">dependOn</span><span class="punctuation bracket">(</span><span class="operator">&</span><span class="variable">install_step</span><span class="punctuation delimiter">.</span><span class="field">step</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+<span class="punctuation bracket">}</span>
+</code></pre>
+<p>Ah yes, don't we all love some hardcoded paths? Well no, but for a PoC this is more than good enough. The build script will just tell the Zig Compiler where to find the <code>C-Headers</code> and where to place the emitted <code>obj</code> file "$PWD/zig-out/obj/wdk-zig.obj".</p><h2>Fixing the translate-c output</h2><h3>nitfs.h</h3><p>Now after my first <code>zig build</code> run, i get the following output:</p><pre><code>❯❯ zig build
+install
+└─ install wdk-zig
+   └─ zig build-obj wdk-zig Debug native-windows-msvc 2 errors
+/home/nightmare/dev/wdk-zig/zig-cache/o/1cb55a6fa036465e3b4d628a218e655b/cimport.zig:23760:19: 
+error: identifier cannot be empty
+    localAdvHdr.*.@&quot;&quot;.Flags |= @as(UCHAR, @bitCast(@as(i8, @truncate(@as(c_int, 64)))));
+                  ^~~
+src/main.zig:2:13: error: C import failed: AnalysisFail
+const wdk = @cImport({
+            ^~~~~~~~
+referenced by:
+    driverEntry: src/main.zig:17:23
+    remaining reference traces hidden; use &apos;-freference-trace&apos; to see all reference traces
+</code></pre><p>Well this doesn't look good, but let's dig into the actual error and what we see is this function:</p><pre><code class="zig"><span class="attribute">pub</span> <span class="attribute">inline</span> <span class="keyword function">fn</span> <span class="function">FsRtlSetupAdvancedHeader</span><span class="punctuation bracket">(</span><span class="parameter">arg_AdvHdr</span><span class="punctuation delimiter">:</span> <span class="variable">PVOID</span><span class="punctuation delimiter">,</span> <span class="parameter">arg_FMutex</span><span class="punctuation delimiter">:</span> <span class="variable">PFAST_MUTEX</span><span class="punctuation bracket">)</span> <span class="type builtin">void</span> <span class="punctuation bracket">{</span>
+    <span class="type qualifier">var</span> <span class="variable">AdvHdr</span> = <span class="variable">arg_AdvHdr</span><span class="punctuation delimiter">;</span>
+    <span class="variable">_</span> <span class="operator">=</span> <span class="operator">&</span><span class="variable">AdvHdr</span><span class="punctuation delimiter">;</span>
+    <span class="type qualifier">var</span> <span class="variable">FMutex</span> = <span class="variable">arg_FMutex</span><span class="punctuation delimiter">;</span>
+    <span class="variable">_</span> <span class="operator">=</span> <span class="operator">&</span><span class="variable">FMutex</span><span class="punctuation delimiter">;</span>
+    <span class="type qualifier">var</span> <span class="variable">localAdvHdr</span><span class="punctuation delimiter">:</span> <span class="variable">PFSRTL_ADVANCED_FCB_HEADER</span> = <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">PFSRTL_ADVANCED_FCB_HEADER</span><span class="punctuation delimiter">,</span> <span class="function builtin">@ptrCast</span><span class="punctuation bracket">(</span><span class="function builtin">@alignCast</span><span class="punctuation bracket">(</span><span class="variable">AdvHdr</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">_</span> <span class="operator">=</span> <span class="operator">&</span><span class="variable">localAdvHdr</span><span class="punctuation delimiter">;</span>
+    <span class="comment">// Compile error happens here</span>
+    <span class="variable">localAdvHdr</span><span class="operator">.*</span><span class="punctuation delimiter">.</span><span class="field">@&quot;&quot;</span><span class="punctuation delimiter">.</span><span class="field">Flags</span> <span class="operator">|=</span> <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">64</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">localAdvHdr</span><span class="operator">.*</span><span class="punctuation delimiter">.</span><span class="field">@&quot;&quot;</span><span class="punctuation delimiter">.</span><span class="field">Flags2</span> <span class="operator">|=</span> <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">2</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="variable">localAdvHdr</span><span class="operator">.*</span><span class="punctuation delimiter">.</span><span class="field">@&quot;&quot;</span><span class="punctuation delimiter">.</span><span class="field">Version</span> <span class="operator">=</span> <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">4</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="comment">// ...</span>
+<span class="punctuation bracket">}</span>
+</code></pre>
+<p>Well this code certainly doesn't look right, but having a look at where <code>localAdvHdr</code> is actually defined, it gives a good clue as to what went wrong.</p><p>First: Let's go into the <code>ntifs.h</code> and search for <code>localAdvHdr</code> and we can find a function that looks familiar:</p><pre><code class="c"><span class="variable">_IRQL_requires_max_</span>(<span class="type">APC_LEVEL</span>)
+<span class="variable">VOID</span><span class="delimiter"></span>
+<span class="type">FORCEINLINE</span>
+<span class="function">FsRtlSetupAdvancedHeader</span>(
+    <span class="type">_In_</span> <span class="variable">PVOID</span> <span class="variable">AdvHdr</span>,
+    <span class="type">_In_</span> <span class="variable">PFAST_MUTEX</span> <span class="variable">FMutex</span> )
+{
+    <span class="type">PFSRTL_ADVANCED_FCB_HEADER</span> <span class="variable">localAdvHdr</span> <span class="operator">=</span> (<span class="type">PFSRTL_ADVANCED_FCB_HEADER</span>)<span class="variable">AdvHdr</span><span class="delimiter">;</span>
+
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Flags</span> |= <span class="variable">FSRTL_FLAG_ADVANCED_HEADER</span><span class="delimiter">;</span>
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Flags2</span> |= <span class="variable">FSRTL_FLAG2_SUPPORTS_FILTER_CONTEXTS</span><span class="delimiter">;</span>
+
+<span class="keyword">#if</span> (<span class="variable">NTDDI_VERSION</span> &gt;= <span class="variable">NTDDI_WIN10_CO</span>)
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Version</span> <span class="operator">=</span> <span class="variable">FSRTL_FCB_HEADER_V4</span><span class="delimiter">;</span>
+<span class="keyword">#elif</span> (<span class="variable">NTDDI_VERSION</span> &gt;= <span class="variable">NTDDI_WINBLUE</span>)
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Version</span> <span class="operator">=</span> <span class="variable">FSRTL_FCB_HEADER_V3</span><span class="delimiter">;</span>
+<span class="keyword">#elif</span> (<span class="variable">NTDDI_VERSION</span> &gt;= <span class="variable">NTDDI_WIN8</span>)
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Version</span> <span class="operator">=</span> <span class="variable">FSRTL_FCB_HEADER_V2</span><span class="delimiter">;</span>
+<span class="keyword">#elif</span> (<span class="variable">NTDDI_VERSION</span> &gt;= <span class="variable">NTDDI_VISTA</span>)
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Version</span> <span class="operator">=</span> <span class="variable">FSRTL_FCB_HEADER_V1</span><span class="delimiter">;</span>
+<span class="keyword">#else</span>
+    <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">Version</span> <span class="operator">=</span> <span class="variable">FSRTL_FCB_HEADER_V0</span><span class="delimiter">;</span>
+<span class="keyword">#endif</span>
+
+    <span class="function">InitializeListHead</span>( <span class="operator">&</span><span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">FilterContexts</span> )<span class="delimiter">;</span>
+
+    <span class="keyword">if</span> (<span class="variable">FMutex</span> <span class="operator">!=</span> <span class="constant">NULL</span>) {
+
+        <span class="variable">localAdvHdr</span><span class="operator">-&gt;</span><span class="property">FastMutex</span> <span class="operator">=</span> <span class="variable">FMutex</span><span class="delimiter">;</span>
+    }
+</code></pre>
+<p>Now this looks like the thing we're missing, and since we see a direct access to the flags, we can safely assume that we just need to fix the optional. Which then results into:</p><pre><code class="zig">    <span class="variable">localAdvHdr</span><span class="operator">.?</span><span class="operator">.*</span><span class="punctuation delimiter">.</span><span class="field">Flags</span> <span class="error">|=</span> <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">64</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="error">;
+    localAdvHdr.?.*</span><span class="punctuation delimiter">.</span><span class="variable builtin">Flags2</span> <span class="error">|=</span> <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">2</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="error">;
+    localAdvHdr.?.*</span><span class="punctuation delimiter">.</span><span class="variable builtin">Version</span> = <span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="variable">UCHAR</span><span class="punctuation delimiter">,</span> <span class="function builtin">@bitCast</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">i8</span><span class="punctuation delimiter">,</span> <span class="function builtin">@truncate</span><span class="punctuation bracket">(</span><span class="function builtin">@as</span><span class="punctuation bracket">(</span><span class="type builtin">c_int</span><span class="punctuation delimiter">,</span> <span class="number">4</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="punctuation bracket">)</span><span class="error">;</span>
+</code></pre>
+<p>and this causes us to get the next error. Of course... :(</p><h3>wdm.h</h3><p>Next compile error is the following:</p><pre><code>❯❯ zig build
+install
+└─ install wdk-zig
+   └─ zig build-obj wdk-zig Debug native-windows-msvc 1 errors
+/home/nightmare/dev/wdk-zig/zig-cache/o/1cb55a6fa036465e3b4d628a218e655b/cimport.zig:1524:16: 
+error: opaque types have unknown size and therefore cannot be directly embedded in unions
+    unnamed_0: struct_unnamed_41,
+               ^~~~~~~~~~~~~~~~~
+/home/nightmare/dev/wdk-zig/zig-cache/o/1cb55a6fa036465e3b4d628a218e655b/cimport.zig:1521:27: 
+note: opaque declared here
+const struct_unnamed_41 = opaque {};
+                          ^~~~~~~~~
+error: the following command failed with 1 compilation errors:
+</code></pre><p>Digging into this error as well, we even have an immediate clue as to what happened, thanks to <code>translate-c</code>.</p><pre><code class="zig"><span class="comment">// /mnt/c/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/km/wdm.h:17935:27: warning: struct demoted to opaque type - has bitfield</span>
+<span class="type qualifier">const</span> <span class="variable">struct_unnamed_44</span> = <span class="keyword">opaque</span> <span class="punctuation bracket">{</span><span class="punctuation bracket">}</span><span class="punctuation delimiter">;</span>
+</code></pre>
+<p>because <code>translate-c</code> is not yet able to correctly determine the underlying memory layout, we of course have to take a look at this, too! Thankfully, we immediately see the line where this happened:</p><pre><code class="c"><span class="keyword">struct</span> {
+    <span class="type">UCHAR</span> <span class="property">Timer2Inserted</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2Expiring</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2CancelPending</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2SetPending</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2Running</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2Disabled</span> : <span class="number">1</span><span class="delimiter">;</span>
+    <span class="type">UCHAR</span> <span class="property">Timer2ReservedFlags</span> : <span class="number">2</span><span class="delimiter">;</span>
+} <span class="variable">DUMMYSTRUCTNAME</span><span class="delimiter">;</span>
+</code></pre>
+<p><code>(+ 1 1 1 1 1 1 2)</code> -> 8. So a full byte is necessary here. We can easily just make this a <code>u8</code> because... well.. we don't actually care about this struct, we just want it to have the same memory layout.</p><p>(This will be done with all of the following errors, so yeah a lot of bitfield counting!)</p><p>Of course i was too lazy to handle all of those cases properly, so for now i just replaced everything with <code>*anyopaque</code>, praying that it all just works as expected. I am not calling myself a Hacker without a reason :p</p><h2>Next steps</h2><p>Now, running <code>zig build</code> lead to the following:</p><pre><code>❯❯ zig build
+┌──[  ]──[ ~/dev/wdk-zig ]──[ main ≢   ?16 -1 ]───[ 20:43:36 ]
+└──[ nightmare@plutonium ]──❯❯
+</code></pre><p>i was... shocked? So i ran it again, but this time with <code>--summary all</code></p><pre><code>❯❯ zig build --summary all
+Build Summary: 3/3 steps succeeded
+install cached
+└─ install wdk-zig cached
+   └─ zig build-obj wdk-zig Debug native-windows-msvc cached 2ms MaxRSS:36M
+</code></pre><p>HOLDUP?! It just... compiled?</p><p>Okokokokok, i kinda thought that something went wrong there in the compilation, so i just ran <code>strings ./zig-out/bin/wdk-obj.obj | grep Driver</code> And see for yourself:</p><pre><code>❯❯ strings zig-out/obj/wdk-zig.obj | grep Driver
+DriverStart
+DriverSize
+DriverSection
+DriverExtension
+DriverName
+DriverInit
+DriverStartIo
+DriverUnload
+DriverObject
+DriverObject
+DriverContext
+DriverEntry
+</code></pre><p>Well this certainly does look... very good, indeed!</p><h3>Linking</h3><p>Linking was, less trivial than i thought, on WSL i am mostly able to run <code>.exe</code> files, but for linking this sort of didn't work when i was trying with <code>/SUBSYSTEM:native</code> so i just copied the object file from WSL to Windows and ran the following linker command in powershell.</p><pre><code>lld-link.exe /INCREMENTAL /TIME /MAP /DEBUG /DRIVER /NODEFAULTLIB /NODEFAULTLIB:libucrt.lib
+/NODEFAULTLIB:libucrtd.lib /TSAWARE:NO /SECTION:.text,erp /SECTION:.rdata,rp /SECTION:.data,rwp
+/SECTION:.pdata,rp /SECTION:00cfg,rp /SECTION:.retplne,r /SECTION:.voltbl,rw /SECTION:INIT,erd
+/SUBSYSTEM:NATIVE /ENTRY:DriverEntry /NODEFAULTLIB:msvcrt.lib
+&apos;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\km\x64\ntoskrnl.lib&apos;
+&apos;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\km\x64\hal.lib&apos;
+&apos;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\km\x64\wmilib.lib&apos;
+/OPT:REF /MANIFEST:NO /OPT:ICF /SECTION:INIT,d  .\wdk-zig.obj -out:owo.sys
+</code></pre><p>And oh yeah, this is a quite a lot, and most of it i don't understand myself (friend helped me again :p) but the results show for itself:</p><pre><code>lld-link: warning: ignoring &apos;/incremental&apos; because REF is enabled; use &apos;/opt:noref&apos; to disable
+  Input File Reading:              10 ms ( 26.3%)
+  GC:                               0 ms (  0.0%)
+  ICF:                              0 ms (  0.0%)
+  Code Layout:                      1 ms (  4.8%)
+  Commit Output File:               0 ms (  0.6%)
+  MAP Emission (Cumulative):        0 ms (  1.3%)
+    Gather Symbols:                 0 ms (  0.0%)
+    Build Symbol Strings:           0 ms (  0.2%)
+    Write to File:                  0 ms (  1.1%)
+  PDB Emission (Cumulative):        9 ms ( 24.1%)
+    Add Objects:                    0 ms (  2.2%)
+      Global Type Hashing:          0 ms (  1.0%)
+      GHash Type Merging:           0 ms (  0.8%)
+      Symbol Merging:               0 ms (  0.3%)
+    Publics Stream Layout:          0 ms (  0.5%)
+    TPI Stream Layout:              0 ms (  0.0%)
+    Commit to Disk:                 8 ms ( 20.9%)
+--------------------------------------------------
+Total Linking Time:                38 ms (100.0%)
+</code></pre><p>blabla yeah there is a warning, but who cares[<a href="#1">1</a>] about warnings, am i right? :') Now my friend is coming in clutch again, who already has a full Windows VM set up, including a custom tool to load drivers, resulting in..........</p><p><img src="/blog/wdk-in-zig/working_driver.png"></p><p>And that's how i have written my first Windows Driver (and also have written my first blog post!).</p><h4>Footnote:</h4><p><a name="1">[1]</a> Of course i care about warnings, but only in serious, non-prototype Projects.</p></div>
+
+      <div class="footer">
+        Did you know?<br>
+        This page is
+        <strong>open source</strong>
+        and deployed using GitHub pages.<br>
+        I also did
+        <strong>not</strong>
+        use any CSS Framework, JavaScript or whatsoever.<br>
+        You can find the Source Code
+        <a href="https://github.com/SoraTenshi/neoncity.dev" style="color: var(--blue)">on my GitHub!</a><br>
+        <br>
+        Also if you find anything that may be inaccurate or not quite correct, please feel free to
+      submit an issue to correct me!
+      </div>
+    </div>
+  </body>
+</html>
