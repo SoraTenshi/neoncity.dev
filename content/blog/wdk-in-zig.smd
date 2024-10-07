@@ -7,7 +7,7 @@
 .tags = [],
 ---
 
-## The beginning
+# The beginning
 
 A friend of mine was working on some driver and i just thought to myself: well, wouldn't it be nice
 if i could just write a Windows Driver in Zig?
@@ -90,9 +90,9 @@ Well no, but for a PoC this is more than good enough.
 The build script will just tell the Zig Compiler where to find the `C-Headers` and where to place
 the emitted `obj` file "$PWD/zig-out/obj/wdk-zig.obj".
 
-## Fixing the translate-c output
+# Fixing the translate-c output
 
-### nitfs.h
+## nitfs.h
 
 Now after my first `zig build` run, i get the following output:
 ```
@@ -177,7 +177,7 @@ assume that we just need to fix the optional. Which then results into:
 ```
 and this causes us to get the next error. Of course... :(
 
-### wdm.h
+## wdm.h
 
 Next compile error is the following:
 ```
@@ -227,7 +227,7 @@ Of course i was too lazy to handle all of those cases properly, so for now i jus
 everything with `*anyopaque`, praying that it all just works as expected. I am not calling myself a
 Hacker without a reason :p
 
-## Next steps
+# Next steps
 Now, running `zig build` lead to the following:
 ```
 ❯❯ zig build
@@ -318,6 +318,6 @@ a custom tool to load drivers, resulting in..........
 
 And that's how i have written my first Windows Driver (and also have written my first blog post!).
 
-#### Footnote:
+### Footnote:
 
 <a name="1">[1]</a> Of course i care about warnings, but only in serious, non-prototype Projects.

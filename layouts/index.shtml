@@ -1,5 +1,6 @@
 <extend template="base.shtml">
 <title id="title" :text="$site.title"></title>
 <div id="box">
+  <h1 id="title" :text="$page.title"></h1>
   <div class="subpairs" :html="$page.content()"></div>
 </div>

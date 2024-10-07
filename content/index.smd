@@ -1,5 +1,5 @@
 ---
-.title = "Main",
+.title = "Hello! || こんにちは || Moin!",
 .draft = false,
 .date = @date("2024-04-04"),
 .author = "SoraNoTenshi",
@@ -7,14 +7,12 @@
 .tags = [],
 ---
 
-# Hello! || こんにちは || Moin!
-
-### I am a young Software Developer that has an interest in:
+# I am a young Software Developer that has an interest in:
 - CTFs (mainly rev & pwn)
 - Programming Languages
 - Japan / Japanese (as a language)
 
-### My favourite programming languages (in no particular order) currently are:
+# My favourite programming languages (in no particular order) currently are:
 - Elixir
 - Zig
 - Odin

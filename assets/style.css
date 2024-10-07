@@ -35,7 +35,7 @@ body {
   scrollbar-gutter: stable;
 }
 
-h1 {
+#title {
   font-size: 1.2rem;
   text-align: center;
   padding: var(--px3);
@@ -43,29 +43,29 @@ h1 {
   padding-bottom: var(--px4);
 }
 
-h2 {
+h1 {
   font-size: 1.1rem;
 }
 
-h3 {
+h2 {
   font-size: 1rem;
 }
 
-h2, h3, h4 {
+h1, h2, h3 {
   padding: var(--px4);
 }
 
-h2::after, h3::after, h4::after {
+h1::after, h2::after, h3::after {
   border-bottom: 1px dotted var(--blue);
   padding-bottom: var(--px8);
 }
 
+h1:has(+ h2),
+h1:has(+ h3),
+h2:has(+ h1),
 h2:has(+ h3),
-h2:has(+ h4),
-h3:has(+ h2),
-h3:has(+ h4),
-h4:has(+ h2),
-h4:has(+ h3) {
+h3:has(+ h1),
+h3:has(+ h2) {
   border-bottom: none;
 }
 
