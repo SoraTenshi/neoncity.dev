@@ -2,16 +2,16 @@
 @import url('fonts.css');
 
 :root {
-  --px1: 0.2em;
-  --px2: 0.4em;
-  --px3: 0.6em;
-  --px4: 0.8em;
-  --px5: 1em;
-  --px6: 1.2em;
-  --px7: 1.4em;
-  --px8: 1.6em;
-  --px9: 1.8em;
-  --px10: 2em;
+  --px1: 0.2rem;
+  --px2: 0.4rem;
+  --px3: 0.6rem;
+  --px4: 0.8rem;
+  --px5: 1rem;
+  --px6: 1.2rem;
+  --px7: 1.4rem;
+  --px8: 1.6rem;
+  --px9: 1.8rem;
+  --px10: 2rem;
 }
 
 * {

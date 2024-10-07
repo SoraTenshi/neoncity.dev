@@ -22,7 +22,7 @@
       </nav>
       
   <h1 id="title">Writing my first Windows Driver in Zig</h1>
-  <div class="subpairs"><h1>The beginning</h1><p>A friend of mine was working on some driver and i just thought to myself: well, wouldn't it be nice if i could just write a Windows Driver in Zig?</p><p>Since i always wanted to experiment around with the WDK, i figured, why not? So there the journey began.</p><h3>Setting up Zig for WDK</h3><p>First things first: I of course looked around the MSDN to find some information on what to do, also with the help of my friend i could figure out <em>some</em> of the basics required for it, such as:</p><ul><li>Entry point</li><li>required Headers</li><li>and most of the linker options, but we'll get to that in a bit.</li></ul><p>So i started to write a simple driver entry point in Zig, which looks like that:</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">win</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">&quot;std&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">.</span><span class="field">os</span><span class="punctuation delimiter">.</span><span class="field">windows</span><span class="punctuation delimiter">;</span>
+  <article class="subpairs"><h1>The beginning</h1><p>A friend of mine was working on some driver and i just thought to myself: well, wouldn't it be nice if i could just write a Windows Driver in Zig?</p><p>Since i always wanted to experiment around with the WDK, i figured, why not? So there the journey began.</p><h3>Setting up Zig for WDK</h3><p>First things first: I of course looked around the MSDN to find some information on what to do, also with the help of my friend i could figure out <em>some</em> of the basics required for it, such as:</p><ul><li>Entry point</li><li>required Headers</li><li>and most of the linker options, but we'll get to that in a bit.</li></ul><p>So i started to write a simple driver entry point in Zig, which looks like that:</p><pre><code class="zig"><span class="type qualifier">const</span> <span class="variable">win</span> = <span class="function builtin">@import</span><span class="punctuation bracket">(</span><span class="string">&quot;std&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">.</span><span class="field">os</span><span class="punctuation delimiter">.</span><span class="field">windows</span><span class="punctuation delimiter">;</span>
 <span class="type qualifier">const</span> <span class="variable">wdk</span> = <span class="function builtin">@cImport</span><span class="punctuation bracket">(</span><span class="punctuation bracket">{</span>
     <span class="function builtin">@cDefine</span><span class="punctuation bracket">(</span><span class="string">&quot;_AMD64_&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;1&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
     <span class="function builtin">@cInclude</span><span class="punctuation bracket">(</span><span class="string">&quot;ntifs.h&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
@@ -208,9 +208,9 @@ DriverEntry
     Commit to Disk:                 8 ms ( 20.9%)
 --------------------------------------------------
 Total Linking Time:                38 ms (100.0%)
-</code></pre><p>blabla yeah there is a warning, but who cares[<a href="#1">1</a>] about warnings, am i right? :') Now my friend is coming in clutch again, who already has a full Windows VM set up, including a custom tool to load drivers, resulting in..........</p><p><img src="/blog/wdk-in-zig/working_driver.png"></p><p>And that's how i have written my first Windows Driver (and also have written my first blog post!).</p><h3>Footnote:</h3><p><a name="1">[1]</a> Of course i care about warnings, but only in serious, non-prototype Projects.</p></div>
+</code></pre><p>blabla yeah there is a warning, but who cares[<a href="#1">1</a>] about warnings, am i right? :') Now my friend is coming in clutch again, who already has a full Windows VM set up, including a custom tool to load drivers, resulting in..........</p><p><img src="/blog/wdk-in-zig/working_driver.png"></p><p>And that's how i have written my first Windows Driver (and also have written my first blog post!).</p><h3>Footnote:</h3><p><a name="1">[1]</a> Of course i care about warnings, but only in serious, non-prototype Projects.</p></article>
 
-      <div class="footer">
+      <footer class="footer">
         Did you know?<br>
         This page is
         <strong>open source</strong>
@@ -223,7 +223,7 @@ Total Linking Time:                38 ms (100.0%)
         <br>
         Also if you find anything that may be inaccurate or not quite correct, please feel free to
       submit an issue to correct me!
-      </div>
+      </footer>
     </div>
   </body>
 </html>
