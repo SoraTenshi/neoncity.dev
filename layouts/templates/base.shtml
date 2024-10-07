@@ -21,7 +21,7 @@
         <a href="https://github.com/SoraTenshi">GitHub</a>
       </nav>
       <super>
-      <div class="footer">
+      <footer class="footer">
         Did you know?<br>
         This page is
         <strong>open source</strong>
@@ -34,7 +34,7 @@
         <br>
         Also if you find anything that may be inaccurate or not quite correct, please feel free to
       submit an issue to correct me!
-      </div>
+      </footer>
     </div>
   </body>
 </html>
